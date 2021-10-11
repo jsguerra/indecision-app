@@ -45,19 +45,39 @@ class Header extends React.Component {
 // }
 
 class Action extends React.Component {
+  handlePick() {
+    alert('handlePick')
+  }
+
   render() {
     return (
       <div>
-        <button>What should I do?</button>
+        <button onClick={this.handlePick}>What should I do?</button>
       </div>
     )
   }
 }
 
 class Options extends React.Component {
+  constructor(props) {
+    super(props)
+
+    // do this to make sure the context is kept with the function below
+    this.handleRemoveAll = this.handleRemoveAll.bind(this)
+  }
+
+  handleRemoveAll() {
+    console.log(this.props.options)
+  }
+
+  // We add bind(this) to keep the props context in the handleRemoveAll function
+  // however this is inefficient as it rerenders each time
+  // thus we modify with the constructor above
+  // <button onClick={this.handleRemoveAll.bind(this)}>Remove All</button>
   render() {
     return (
       <div>
+        <button onClick={this.handleRemoveAll}>Remove All</button>
         {
           this.props.options.map(option => <Option key={option} optionText={option} />)
         }
@@ -75,11 +95,22 @@ class Option extends React.Component {
 }
 
 class AddOption extends React.Component {
+  handleAddOption(e) {
+    e.preventDefault()
+
+    const option = e.target.elements.option.value.trim()
+
+    if (option) {
+      alert(option)
+    }
+  }
+
   render() {
     return (
-      <div>
-        <p>Add the option.</p>
-      </div>
+      <form onSubmit={this.handleAddOption}>
+        <input type="text" name="option" />
+        <button>Add Option</button>
+      </form>
     )
   }
 }
