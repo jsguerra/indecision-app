@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "babel src/app.js --out-file=public/js/app.js --watch",
-    "watch2": "babel src/sandbox-section-4/es6-classes-1.js --out-file=public/js/app.js --watch"
+    "watch2": "babel src/sandbox-section-3/counter-example.js --out-file=public/js/app.js --watch"
   },
   "keywords": [],
   "author": "",
