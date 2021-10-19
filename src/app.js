@@ -1,14 +1,31 @@
 class IndecisionApp extends React.Component {
+  constructor(props) {
+    super(props)
+    this.handleDeleteOptions = this.handleDeleteOptions.bind(this)
+    this.state = {
+      options: ['Thing one', 'Thing two', 'Thing three']
+    }
+  }
+  // Child props do not go upstream to the Parent, only downstream
+  handleDeleteOptions() {
+    this.setState(() => {
+      return {
+        options: []
+      }
+    })
+  }
   render() {
     const title = 'Indecision'
     const subtitle = 'Put your life in the hands of a computer'
-    const options = ['Thing one', 'Thing two', 'Thing four']
 
     return (
       <div>
         <Header title={title} subtitle={subtitle} />
-        <Action />
-        <Options options={options} />
+        <Action hasOptions={this.state.options.length > 0} />
+        <Options
+          options={this.state.options}
+          handleDeleteOptions={this.handleDeleteOptions}
+        />
         <AddOption />
       </div>
     )
@@ -52,23 +69,28 @@ class Action extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.handlePick}>What should I do?</button>
+        <button
+          onClick={this.handlePick}
+          disabled={!this.props.hasOptions}
+        >
+          What should I do?
+        </button>
       </div>
     )
   }
 }
 
 class Options extends React.Component {
-  constructor(props) {
-    super(props)
+  // constructor(props) {
+  //   super(props)
 
-    // do this to make sure the context is kept with the function below
-    this.handleRemoveAll = this.handleRemoveAll.bind(this)
-  }
+  //   // do this to make sure the context is kept with the function below
+  //   this.handleRemoveAll = this.handleRemoveAll.bind(this)
+  // }
 
-  handleRemoveAll() {
-    console.log(this.props.options)
-  }
+  // handleRemoveAll() {
+  //   console.log(this.props.options)
+  // }
 
   // We add bind(this) to keep the props context in the handleRemoveAll function
   // however this is inefficient as it rerenders each time
@@ -77,7 +99,9 @@ class Options extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={this.handleRemoveAll}>Remove All</button>
+        {/* <button onClick={this.handleRemoveAll}>Remove All</button> */}
+        {/* The props are passed down from the parent instead of the child */}
+        <button onClick={this.props.handleDeleteOptions}>Remove All</button>
         {
           this.props.options.map(option => <Option key={option} optionText={option} />)
         }
