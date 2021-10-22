@@ -35,6 +35,7 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_assertThisInitialized(_this));
     _this.handlePick = _this.handlePick.bind(_assertThisInitialized(_this));
+    _this.handleAddOption = _this.handleAddOption.bind(_assertThisInitialized(_this));
     _this.state = {
       options: ['Thing one', 'Thing two', 'Thing three']
     };
@@ -59,6 +60,15 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
       alert(option);
     }
   }, {
+    key: "handleAddOption",
+    value: function handleAddOption(option) {
+      this.setState(function (prevState) {
+        return {
+          options: options
+        };
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var title = 'Indecision';
@@ -72,7 +82,9 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
       }), /*#__PURE__*/React.createElement(Options, {
         options: this.state.options,
         handleDeleteOptions: this.handleDeleteOptions
-      }), /*#__PURE__*/React.createElement(AddOption, null));
+      }), /*#__PURE__*/React.createElement(AddOption, {
+        handleAddOption: this.handleAddOption
+      }));
     }
   }]);
 
@@ -210,10 +222,14 @@ var AddOption = /*#__PURE__*/function (_React$Component6) {
 
   var _super6 = _createSuper(AddOption);
 
-  function AddOption() {
+  function AddOption(props) {
+    var _this2;
+
     _classCallCheck(this, AddOption);
 
-    return _super6.apply(this, arguments);
+    _this2 = _super6.call(this, props);
+    _this2.handleAddOption = _this2.handleAddOption.bind(_assertThisInitialized(_this2));
+    return _this2;
   }
 
   _createClass(AddOption, [{
@@ -223,7 +239,7 @@ var AddOption = /*#__PURE__*/function (_React$Component6) {
       var option = e.target.elements.option.value.trim();
 
       if (option) {
-        alert(option);
+        this.props.handleAddOption(option);
       }
     }
   }, {
