@@ -34,6 +34,7 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_assertThisInitialized(_this));
+    _this.handlePick = _this.handlePick.bind(_assertThisInitialized(_this));
     _this.state = {
       options: ['Thing one', 'Thing two', 'Thing three']
     };
@@ -51,6 +52,13 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "handlePick",
+    value: function handlePick() {
+      var randomNum = Math.floor(Math.random() * this.state.options.length);
+      var option = this.state.options[randomNum];
+      alert(option);
+    }
+  }, {
     key: "render",
     value: function render() {
       var title = 'Indecision';
@@ -59,7 +67,8 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
         title: title,
         subtitle: subtitle
       }), /*#__PURE__*/React.createElement(Action, {
-        hasOptions: this.state.options.length > 0
+        hasOptions: this.state.options.length > 0,
+        handlePick: this.handlePick
       }), /*#__PURE__*/React.createElement(Options, {
         options: this.state.options,
         handleDeleteOptions: this.handleDeleteOptions
@@ -119,15 +128,14 @@ var Action = /*#__PURE__*/function (_React$Component3) {
   }
 
   _createClass(Action, [{
-    key: "handlePick",
-    value: function handlePick() {
-      alert('handlePick');
-    }
-  }, {
     key: "render",
-    value: function render() {
+    value: // handlePick() {
+    //   alert('handlePick')
+    // }
+    function render() {
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-        onClick: this.handlePick,
+        // onClick={this.handlePick}
+        onClick: this.props.handlePick,
         disabled: !this.props.hasOptions
       }, "What should I do?"));
     }
