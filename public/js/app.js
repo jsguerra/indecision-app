@@ -97,26 +97,19 @@ var IndecisionApp = /*#__PURE__*/function (_React$Component) {
   return IndecisionApp;
 }(React.Component);
 
-var Header = /*#__PURE__*/function (_React$Component2) {
-  _inherits(Header, _React$Component2);
-
-  var _super2 = _createSuper(Header);
-
-  function Header() {
-    _classCallCheck(this, Header);
-
-    return _super2.apply(this, arguments);
-  }
-
-  _createClass(Header, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, this.props.title), /*#__PURE__*/React.createElement("h2", null, this.props.subtitle));
-    }
-  }]);
-
-  return Header;
-}(React.Component); // function Header() {
+var Header = function Header(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, props.title), /*#__PURE__*/React.createElement("h2", null, props.subtitle));
+}; // class Header extends React.Component {
+//   render() {
+//     return (
+//       <div>
+//         <h1>{this.props.title}</h1>
+//         <h2>{this.props.subtitle}</h2>
+//       </div>
+//     )
+//   }
+// }
+// function Header() {
 //   return (
 //     <div>
 //       <h1>Indecision</h1>
@@ -134,106 +127,90 @@ var Header = /*#__PURE__*/function (_React$Component2) {
 // }
 
 
-var Action = /*#__PURE__*/function (_React$Component3) {
-  _inherits(Action, _React$Component3);
+var Action = function Action(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+    onClick: props.handlePick,
+    disabled: !props.hasOptions
+  }, "What should I do?"));
+}; // class Action extends React.Component {
+//   // handlePick() {
+//   //   alert('handlePick')
+//   // }
+//   render() {
+//     return (
+//       <div>
+//         <button
+//           // onClick={this.handlePick}
+//           onClick={this.props.handlePick}
+//           disabled={!this.props.hasOptions}
+//         >
+//           What should I do?
+//         </button>
+//       </div>
+//     )
+//   }
+// }
 
-  var _super3 = _createSuper(Action);
 
-  function Action() {
-    _classCallCheck(this, Action);
+var Options = function Options(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
+    onClick: props.handleDeleteOptions
+  }, "Remove All"), props.options.map(function (option) {
+    return /*#__PURE__*/React.createElement(Option, {
+      key: option,
+      optionText: option
+    });
+  }));
+}; // class Options extends React.Component {
+// constructor(props) {
+//   super(props)
+//   // do this to make sure the context is kept with the function below
+//   this.handleRemoveAll = this.handleRemoveAll.bind(this)
+// }
+// handleRemoveAll() {
+//   console.log(this.props.options)
+// }
+// We add bind(this) to keep the props context in the handleRemoveAll function
+// however this is inefficient as it rerenders each time
+// thus we modify with the constructor above
+// <button onClick={this.handleRemoveAll.bind(this)}>Remove All</button>
+//   render() {
+//     return (
+//       <div>
+//         {/* <button onClick={this.handleRemoveAll}>Remove All</button> */}
+//         {/* The props are passed down from the parent instead of the child */}
+//         <button onClick={this.props.handleDeleteOptions}>Remove All</button>
+//         {
+//           this.props.options.map(option => <Option key={option} optionText={option} />)
+//         }
+//       </div>
+//     )
+//   }
+// }
 
-    return _super3.apply(this, arguments);
-  }
 
-  _createClass(Action, [{
-    key: "render",
-    value: // handlePick() {
-    //   alert('handlePick')
-    // }
-    function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-        // onClick={this.handlePick}
-        onClick: this.props.handlePick,
-        disabled: !this.props.hasOptions
-      }, "What should I do?"));
-    }
-  }]);
+var Option = function Option(props) {
+  return /*#__PURE__*/React.createElement("div", null, props.optionText);
+}; // class Option extends React.Component {
+//   render() {
+//     return (
+//       <div>{this.props.optionText}</div>
+//     )
+//   }
+// }
 
-  return Action;
-}(React.Component);
 
-var Options = /*#__PURE__*/function (_React$Component4) {
-  _inherits(Options, _React$Component4);
+var AddOption = /*#__PURE__*/function (_React$Component2) {
+  _inherits(AddOption, _React$Component2);
 
-  var _super4 = _createSuper(Options);
-
-  function Options() {
-    _classCallCheck(this, Options);
-
-    return _super4.apply(this, arguments);
-  }
-
-  _createClass(Options, [{
-    key: "render",
-    value: // constructor(props) {
-    //   super(props)
-    //   // do this to make sure the context is kept with the function below
-    //   this.handleRemoveAll = this.handleRemoveAll.bind(this)
-    // }
-    // handleRemoveAll() {
-    //   console.log(this.props.options)
-    // }
-    // We add bind(this) to keep the props context in the handleRemoveAll function
-    // however this is inefficient as it rerenders each time
-    // thus we modify with the constructor above
-    // <button onClick={this.handleRemoveAll.bind(this)}>Remove All</button>
-    function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("button", {
-        onClick: this.props.handleDeleteOptions
-      }, "Remove All"), this.props.options.map(function (option) {
-        return /*#__PURE__*/React.createElement(Option, {
-          key: option,
-          optionText: option
-        });
-      }));
-    }
-  }]);
-
-  return Options;
-}(React.Component);
-
-var Option = /*#__PURE__*/function (_React$Component5) {
-  _inherits(Option, _React$Component5);
-
-  var _super5 = _createSuper(Option);
-
-  function Option() {
-    _classCallCheck(this, Option);
-
-    return _super5.apply(this, arguments);
-  }
-
-  _createClass(Option, [{
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, this.props.optionText);
-    }
-  }]);
-
-  return Option;
-}(React.Component);
-
-var AddOption = /*#__PURE__*/function (_React$Component6) {
-  _inherits(AddOption, _React$Component6);
-
-  var _super6 = _createSuper(AddOption);
+  var _super2 = _createSuper(AddOption);
 
   function AddOption(props) {
     var _this2;
 
     _classCallCheck(this, AddOption);
 
-    _this2 = _super6.call(this, props);
+    _this2 = _super2.call(this, props);
     _this2.handleAddOption = _this2.handleAddOption.bind(_assertThisInitialized(_this2));
     _this2.state = {
       error: undefined
